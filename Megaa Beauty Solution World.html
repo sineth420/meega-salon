@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Megaa Beauty Solution World — Natural & Holistic Beauty</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --beige: #F5F1E8;
+    --beige-deep: #E5DBC5;
+    --green: #2C4A3E;
+    --green-light: #6B8F71;
+    --green-dark: #1A2D24;
+    --gold: #C8A063;
+    --text: #1F2D26;
+  }
+  *{ -webkit-font-smoothing:antialiased; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Outfit', sans-serif;
+    background:var(--beige);
+    color:var(--text);
+    overflow-x:hidden;
+  }
+  .font-display{ font-family:'Playfair Display', serif; }
+  
+  /* Animated mesh background */
+  .mesh-bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(107,143,113,0.2), transparent 45%),
+      radial-gradient(circle at 85% 30%, rgba(229,219,197,0.4), transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(44,74,62,0.1), transparent 55%),
+      var(--beige);
+  }
+  .blob{
+    position:fixed; border-radius:50%; filter:blur(80px); z-index:-1; opacity:.4;
+    animation:float 18s ease-in-out infinite;
+  }
+  .blob-1{ width:480px; height:480px; background:var(--green-light); top:-100px; left:-120px; }
+  .blob-2{ width:380px; height:380px; background:var(--beige-deep); top:30%; right:-100px; animation-delay:-6s; }
+  .blob-3{ width:420px; height:420px; background:var(--green); bottom:-120px; left:30%; animation-delay:-12s; opacity:0.2; }
+  @keyframes float{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    33%{ transform:translate(40px,-30px) scale(1.08); }
+    66%{ transform:translate(-30px,40px) scale(.95); }
+  }
+
+  /* Grain texture */
+  .grain::after{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Reveal animation */
+  .reveal{ opacity:0; transform:translateY(40px); transition:opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+  .reveal-stagger > *{ opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
+  .reveal-stagger.in > *{ opacity:1; transform:none; }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay:.05s; }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay:.15s; }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay:.25s; }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay:.35s; }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay:.45s; }
+  .reveal-stagger.in > *:nth-child(6){ transition-delay:.55s; }
+
+  /* Marquee */
+  .marquee{ display:flex; gap:3rem; animation:marquee 30s linear infinite; }
+  @keyframes marquee{ to{ transform:translateX(-50%); } }
+
+  /* Organic Image Frame */
+  .organic-frame{
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    overflow: hidden;
+    animation: morph 15s ease-in-out infinite alternate;
+    box-shadow: 0 30px 60px -20px rgba(44,74,62,0.3);
+  }
+  @keyframes morph {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  }
+  .organic-frame img{ transition:transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .organic-frame:hover img{ transform:scale(1.05); }
+
+  /* Service card */
+  .service-card{
+    position:relative; overflow:hidden; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);
+    transition:transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s, background .6s;
+    border: 1px solid rgba(229,219,197,0.5);
+  }
+  .service-card .reveal-bg{
+    position:absolute; inset:0; background:var(--green);
+    transform:translateY(100%); transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    z-index:0;
+  }
+  .service-card:hover .reveal-bg{ transform:translateY(0); }
+  .service-card:hover{ color:var(--beige); transform:translateY(-8px); box-shadow: 0 20px 40px -10px rgba(44,74,62,0.3); }
+  .service-card:hover .icon-circle{ background:rgba(255,255,255,.15); color:var(--beige); }
+  .service-card:hover .service-border{ border-color: rgba(255,255,255,0.2); }
+  .service-card > *{ position:relative; z-index:1; }
+
+  /* Buttons */
+  .btn-primary{
+    background:var(--green); color:var(--beige);
+    padding:.95rem 2.2rem; border-radius:999px; font-weight:500;
+    transition:all .4s; position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:.6rem;
+  }
+  .btn-primary::before{
+    content:""; position:absolute; inset:0; background:var(--green-light);
+    transform:translateY(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .btn-primary:hover::before{ transform:translateY(0); }
+  .btn-primary span, .btn-primary i{ position:relative; z-index:1; }
+
+  .btn-ghost{
+    border:1px solid var(--green); color:var(--green);
+    padding:.95rem 2.2rem; border-radius:999px; font-weight:500; background: transparent;
+    transition:all .4s; display:inline-flex; align-items:center; gap:.6rem;
+  }
+  .btn-ghost:hover{ background:var(--green); color:var(--beige); }
+
+  /* Time slot */
+  .slot{
+    border:1px solid rgba(44,74,62,0.2);
+    padding:.55rem .9rem; border-radius:10px;
+    font-size:.85rem; cursor:pointer; transition:all .25s;
+    text-align:center; background: rgba(255,255,255,0.5);
+  }
+  .slot:hover{ border-color:var(--green-light); color:var(--green-light); }
+  .slot.selected{ background:var(--green); color:var(--beige); border-color:var(--green); }
+  .slot.disabled{ opacity:.35; cursor:not-allowed; text-decoration:line-through; }
+
+  /* Input */
+  .input{
+    width:100%; background:rgba(255,255,255,0.7); border:1px solid rgba(44,74,62,0.2);
+    padding:.85rem 1rem; border-radius:12px; font-size:.95rem; color:var(--text);
+    transition:all .25s; font-family: 'Outfit', sans-serif;
+  }
+  .input:focus{ outline:none; border-color:var(--green-light); background:#fff; box-shadow:0 0 0 4px rgba(107,143,113,.15); }
+
+  /* Toast */
+  .toast{
+    position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(120%);
+    background:var(--green); color:var(--beige); padding:1rem 1.5rem; border-radius:14px;
+    display:flex; align-items:center; gap:.7rem; z-index:100; transition:transform .5s cubic-bezier(.2,.8,.2,1);
+    box-shadow:0 20px 50px rgba(44,74,62,.3);
+  }
+  .toast.show{ transform:translateX(-50%) translateY(0); }
+  .toast .check{ width:28px; height:28px; border-radius:50%; background:var(--green-light); display:flex; align-items:center; justify-content:center; }
+
+  /* Nav link underline */
+  .nav-link{ position:relative; }
+  .nav-link::after{
+    content:""; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--green);
+    transform:scaleX(0); transform-origin:right; transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-link:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+  /* Counter */
+  .counter-num{ font-variant-numeric:tabular-nums; }
+
+  /* Gallery image hover */
+  .gallery-item{ overflow:hidden; border-radius:16px; position:relative; cursor:pointer; }
+  .gallery-item img{ transition:transform .8s cubic-bezier(.2,.8,.2,1); }
+  .gallery-item:hover img{ transform:scale(1.1); }
+  .gallery-item .overlay{
+    position:absolute; inset:0; background:linear-gradient(to top, rgba(26,45,36,.8), transparent 60%);
+    opacity:0; transition:opacity .4s; display:flex; align-items:flex-end; padding:1.2rem;
+  }
+  .gallery-item:hover .overlay{ opacity:1; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--beige); }
+  ::-webkit-scrollbar-thumb{ background:var(--green-light); border-radius:10px; border:2px solid var(--beige); }
+  ::-webkit-scrollbar-thumb:hover{ background:var(--green); }
+
+  /* Selection */
+  ::selection{ background:var(--green-light); color:var(--beige); }
+
+  /* Mobile menu */
+  .mobile-menu{ transform:translateX(100%); transition:transform .5s cubic-bezier(.2,.8,.2,1); }
+  .mobile-menu.open{ transform:translateX(0); }
+
+  /* Floating label on date */
+  input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: invert(26%) sepia(10%) saturate(500%) hue-rotate(110deg);
+    cursor:pointer;
+  }
+
+  /* Floating leaves */
+  .leaf-svg { position: absolute; pointer-events:none; opacity: 0.15; }
+  
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body class="grain">
+
+<div class="mesh-bg"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- Floating Leaves Decors -->
+<svg class="leaf-svg" style="top: 15%; right: 5%; width: 150px; transform: rotate(45deg);" viewBox="0 0 24 24" fill="#2C4A3E"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" /></svg>
+<svg class="leaf-svg" style="bottom: 10%; left: 8%; width: 120px; transform: rotate(-30deg);" viewBox="0 0 24 24" fill="#6B8F71"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" /></svg>
+
+<!-- ============ NAVBAR ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--green);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--beige)" stroke-width="2" class="w-5 h-5"><path d="M12 2L13.09 8.26L20 9L15 14L16.18 21L12 17.77L7.82 21L9 14L4 9L10.91 8.26L12 2Z" /></svg>
+      </div>
+      <div class="leading-tight">
+        <div class="font-display text-xl font-bold tracking-tight">Megaa Beauty</div>
+        <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--green-light)]">Solution World</div>
+      </div>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-sm font-medium">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="tel:+15551234567" class="hidden md:flex items-center gap-2 text-sm font-medium hover:text-[var(--green-light)] transition">
+        <i class="fa-solid fa-phone text-xs"></i>
+        <span>(555) 123-4567</span>
+      </a>
+      <a href="#booking" class="btn-primary text-sm hidden sm:inline-flex">
+        <span>Book Now</span>
+        <i class="fa-solid fa-arrow-right text-xs relative z-10"></i>
+      </a>
+      <button class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[var(--green)]/30" id="menuBtn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu fixed top-0 right-0 bottom-0 w-72 bg-[var(--beige)] z-50 shadow-2xl lg:hidden" id="mobileMenu">
+  <div class="p-6 flex flex-col h-full">
+    <div class="flex justify-end mb-8">
+      <button id="closeMenu" class="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--green)]/30">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-5 text-lg font-display">
+      <a href="#home" class="mobile-link">Home</a>
+      <a href="#services" class="mobile-link">Services</a>
+      <a href="#about" class="mobile-link">About</a>
+      <a href="#gallery" class="mobile-link">Gallery</a>
+      <a href="#booking" class="mobile-link">Book Now</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+    </nav>
+    <div class="mt-auto pt-6 border-t border-[var(--green)]/20 text-sm">
+      <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-phone text-xs"></i>(555) 123-4567</div>
+      <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-xs"></i>123 Green Avenue, NYC</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative min-h-screen flex items-center pt-28 pb-16 px-6 lg:px-10">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-10 items-center">
+    <!-- Left text -->
+    <div class="lg:col-span-7 reveal-stagger">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/50 backdrop-blur border border-[var(--green-light)]/30 mb-6">
+        <span class="w-2 h-2 rounded-full bg-[var(--green-light)] animate-pulse"></span>
+        <span class="text-xs tracking-widest uppercase font-medium">Holistic & Natural Beauty Solutions</span>
+      </div>
+
+      <h1 class="font-display font-medium leading-[0.95] tracking-tight" style="font-size:clamp(3rem, 8vw, 6.5rem);">
+        Reveal your<br>
+        <span class="italic" style="color:var(--green-light);">natural</span> radiance<br>
+        <span style="color: var(--green);">in harmony.</span>
+      </h1>
+
+      <p class="mt-7 text-lg max-w-xl text-[var(--green)]/80 leading-relaxed">
+        Step into Megaa Beauty Solution World — a sanctuary where nature meets nurture. Experience holistic treatments, organic skincare, and expert artistry designed to awaken your truest glow.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#booking" class="btn-primary">
+          <span>Book Your Visit</span>
+          <i class="fa-solid fa-arrow-right text-xs relative z-10"></i>
+        </a>
+        <a href="#services" class="btn-ghost">
+          Explore Services
+          <i class="fa-solid fa-arrow-down text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="mt-14 grid grid-cols-3 gap-6 max-w-xl">
+        <div>
+          <div class="font-display text-4xl font-semibold counter-num" data-target="15">0</div>
+          <div class="text-xs uppercase tracking-widest text-[var(--green)]/60 mt-1">Years of care</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl font-semibold counter-num" data-target="10000">0</div>
+          <div class="text-xs uppercase tracking-widest text-[var(--green)]/60 mt-1">Happy clients</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl font-semibold counter-num" data-target="35">0</div>
+          <div class="text-xs uppercase tracking-widest text-[var(--green)]/60 mt-1">Expert stylists</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right image -->
+    <div class="lg:col-span-5 reveal" style="transition-delay:.3s;">
+      <div class="relative">
+        <!-- Organic frame -->
+        <div class="organic-frame relative">
+          <img src="images/main.png" alt="Megaa Beauty Solution World" class="w-full h-[560px] object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--green)]/20 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Floating badge -->
+        <div class="absolute -bottom-6 -left-6 bg-[var(--beige)] rounded-2xl p-4 shadow-2xl border border-[var(--beige-deep)] max-w-[220px]">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="flex -space-x-2">
+              <div class="w-7 h-7 rounded-full bg-[var(--green-light)] border-2 border-[var(--beige)]"></div>
+              <div class="w-7 h-7 rounded-full bg-[var(--green)] border-2 border-[var(--beige)]"></div>
+              <div class="w-7 h-7 rounded-full bg-[var(--gold)] border-2 border-[var(--beige)]"></div>
+            </div>
+            <div class="text-xs font-semibold">5.0 ★</div>
+          </div>
+          <div class="text-[11px] text-[var(--green)]/80 leading-snug">Rated #1 holistic beauty sanctuary in the city</div>
+        </div>
+
+        <!-- Floating tag -->
+        <div class="absolute -top-4 -right-4 bg-[var(--gold)] text-[var(--green-dark)] rounded-full px-4 py-2 text-xs font-medium shadow-xl flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--green)] animate-pulse"></span>
+          Open today · 9am–8pm
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs text-[var(--green)]/60">
+    <span class="uppercase tracking-[0.3em]">Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-[var(--green)] to-transparent"></div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="py-6 border-y border-[var(--green)]/15 overflow-hidden bg-[var(--beige-deep)]/40">
+  <div class="marquee whitespace-nowrap font-display text-3xl md:text-4xl font-medium">
+    <span class="flex items-center gap-12 pr-12">
+      <span>Organic Skincare</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Hair Artistry</span><span class="text-[var(--green-light)]">❋</span>
+      <span>Bridal Glow</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Nail Atelier</span><span class="text-[var(--green-light)]">❋</span>
+      <span>Spa Sanctuary</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Brow &amp; Lash</span><span class="text-[var(--green-light)]">❋</span>
+    </span>
+    <span class="flex items-center gap-12 pr-12">
+      <span>Organic Skincare</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Hair Artistry</span><span class="text-[var(--green-light)]">❋</span>
+      <span>Bridal Glow</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Nail Atelier</span><span class="text-[var(--green-light)]">❋</span>
+      <span>Spa Sanctuary</span><span class="text-[var(--green-light)]">❋</span>
+      <span class="italic">Brow &amp; Lash</span><span class="text-[var(--green-light)]">❋</span>
+    </span>
+  </div>
+</section>
+
+<!-- ============ ABOUT (Zig-Zag Layout) ============ -->
+<section id="about" class="py-24 px-6 lg:px-10">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal relative order-2 lg:order-1">
+      <div class="relative">
+        <div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80" alt="Natural Skincare" class="w-full h-full object-cover" />
+        </div>
+        <!-- Floating stat card -->
+        <div class="absolute -top-6 -right-6 bg-[var(--green)] text-[var(--beige)] rounded-2xl p-5 shadow-xl hidden md:block">
+          <div class="font-display text-3xl font-semibold">100%</div>
+          <div class="text-xs uppercase tracking-widest mt-1">Organic Products</div>
+        </div>
+        <!-- Floating image 2 -->
+        <div class="absolute -bottom-8 -left-8 w-40 h-40 rounded-2xl overflow-hidden border-4 border-[var(--beige)] shadow-xl hidden md:block">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80" alt="Spa" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-stagger order-1 lg:order-2">
+      <div class="text-xs uppercase tracking-[0.3em] text-[var(--green-light)] mb-4">— Our Sanctuary</div>
+      <h2 class="font-display text-5xl md:text-6xl font-medium leading-[1.05] tracking-tight">
+        Where nature<br>
+        <span class="italic" style="color:var(--green-light);">meets</span> nurture.
+      </h2>
+      <p class="mt-7 text-[var(--green)]/80 text-lg leading-relaxed">
+        At Megaa Beauty Solution World, we believe in the power of botanicals. Our treatments merge time-honored natural remedies with modern aesthetic science to deliver results you can see and feel.
+      </p>
+      <p class="mt-4 text-[var(--green)]/80 leading-relaxed">
+        From our herb-infused facial oils to our sustainably sourced hair care lines, every detail is curated to ensure your beauty ritual is as kind to the earth as it is to your skin.
+      </p>
+
+      <div class="mt-9 grid sm:grid-cols-2 gap-5">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--beige-deep)] flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-leaf text-[var(--green)] text-sm"></i>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Botanical Ingredients</div>
+            <div class="text-sm text-[var(--green)]/70">Vegan, cruelty-free, organic.</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--beige-deep)] flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-hand-holding-heart text-[var(--green)] text-sm"></i>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Holistic Care</div>
+            <div class="text-sm text-[var(--green)]/70">Mind, body, and spirit rituals.</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--beige-deep)] flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-gem text-[var(--green)] text-sm"></i>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Master Artisans</div>
+            <div class="text-sm text-[var(--green)]/70">Globally trained experts.</div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-[var(--beige-deep)] flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-mug-hot text-[var(--green)] text-sm"></i>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Herbal Tea Bar</div>
+            <div class="text-sm text-[var(--green)]/70">Relax with our signature blends.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="py-24 px-6 lg:px-10 relative">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14 reveal">
+      <div>
+        <div class="text-xs uppercase tracking-[0.3em] text-[var(--green-light)] mb-4">— Signature Rituals</div>
+        <h2 class="font-display text-5xl md:text-6xl font-medium leading-[1.05] tracking-tight max-w-2xl">
+          Services crafted<br><span class="italic" style="color:var(--green-light);">to make you bloom.</span>
+        </h2>
+      </div>
+      <a href="#booking" class="btn-ghost self-start md:self-end">
+        View All &amp; Book
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+      <!-- Card 1 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Botanical Facial">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-spa text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Skincare</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Botanical Facial</h3>
+        <p class="text-sm opacity-80 mb-5">A 60-minute organic glow ritual with herbal extracts, lymphatic massage, and LED therapy.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">$120</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> 60 min</div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Hair Artistry">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-scissors text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Hair</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Cut &amp; Color Artistry</h3>
+        <p class="text-sm opacity-80 mb-5">Bespoke cuts, organic balayage, and tonal work by our senior colorists.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">from $180</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> 120 min</div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Bridal Glow">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-crown text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Bridal</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Bridal Glow Package</h3>
+        <p class="text-sm opacity-80 mb-5">Full-day ritual: hair, makeup, organic skincare, and a touch-up artist on location.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">$850</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> Full day</div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Nail Atelier">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-hand-sparkles text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Nails</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Nail Atelier</h3>
+        <p class="text-sm opacity-80 mb-5">Japanese gel art, BIAB, and spa manicures with non-toxic, vegan polishes.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">$65</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> 75 min</div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Brow & Lash">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-eye text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Brow &amp; Lash</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Brow &amp; Lash Studio</h3>
+        <p class="text-sm opacity-80 mb-5">Shaping, lamination, lifting, and tinting for a soft, naturally framed gaze.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">$75</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> 45 min</div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="service-card rounded-3xl p-7 cursor-pointer" data-service="Massage Ritual">
+        <div class="reveal-bg"></div>
+        <div class="icon-circle w-14 h-14 rounded-full bg-[var(--beige-deep)] flex items-center justify-center mb-6 transition-all">
+          <i class="fa-solid fa-leaf text-[var(--green)] text-lg"></i>
+        </div>
+        <div class="text-xs uppercase tracking-widest mb-2 opacity-70">Body</div>
+        <h3 class="font-display text-2xl font-medium mb-3">Forest Massage Ritual</h3>
+        <p class="text-sm opacity-80 mb-5">Aromatherapy, hot stone, and lymphatic drainage using forest-derived essential oils.</p>
+        <div class="flex items-center justify-between pt-4 border-t border-[var(--green)]/15 service-border">
+          <div class="font-display text-xl">$140</div>
+          <div class="text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> 90 min</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="booking" class="py-24 px-6 lg:px-10 relative bg-[var(--green)] -mx-6 lg:-mx-10">
+  <div class="max-w-7xl mx-auto relative">
+    <div class="bg-[var(--beige)] rounded-[40px] overflow-hidden shadow-2xl">
+      <div class="grid lg:grid-cols-5">
+        <!-- Left visual side -->
+        <div class="lg:col-span-2 relative p-10 lg:p-12 overflow-hidden bg-[var(--beige-deep)]">
+          <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-15" alt="Background" />
+          <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[var(--green-light)]/20 blur-2xl"></div>
+          
+          <div class="relative text-[var(--green)] h-full flex flex-col">
+            <div class="text-xs uppercase tracking-[0.3em] opacity-80 mb-4">— Reservations</div>
+            <h2 class="font-display text-4xl md:text-5xl font-medium leading-[1.05] tracking-tight">
+              Book your<br><span class="italic">natural</span><br>moment.
+            </h2>
+            <p class="mt-5 opacity-90 leading-relaxed text-[15px]">
+              Choose your ritual, select an artisan, and pick a time that suits you. We'll handle the rest with care.
+            </p>
+
+            <div class="mt-10 space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--green)]/15 flex items-center justify-center">
+                  <i class="fa-solid fa-calendar-check text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold">Instant confirmation</div>
+                  <div class="text-xs opacity-75">No waiting, no callbacks</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--green)]/15 flex items-center justify-center">
+                  <i class="fa-solid fa-arrows-rotate text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold">Free rescheduling</div>
+                  <div class="text-xs opacity-75">Up to 24h before your visit</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[var(--green)]/15 flex items-center justify-center">
+                  <i class="fa-solid fa-gift text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold">First visit gift</div>
+                  <div class="text-xs opacity-75">Complimentary herbal tea ritual</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-auto pt-10">
+              <div class="flex items-center gap-3 pt-5 border-t border-[var(--green)]/20">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="Stylist" class="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <div class="text-sm font-semibold">Megaa Taylor</div>
+                  <div class="text-xs opacity-75">Lead Beauty Director</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form side -->
+        <div class="lg:col-span-3 p-10 lg:p-12">
+          <form id="bookingForm" class="space-y-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display text-2xl font-medium">Reserve your visit</h3>
+              <div class="text-xs text-[var(--green)]/60">Step <span id="stepNum">1</span> of 3</div>
+            </div>
+
+            <!-- Service selection -->
+            <div>
+              <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Choose a service</label>
+              <select id="service" required class="input">
+                <option value="">Select a ritual…</option>
+                <option value="Botanical Facial — $120">Botanical Facial — $120</option>
+                <option value="Cut & Color Artistry — $180">Cut &amp; Color Artistry — from $180</option>
+                <option value="Bridal Glow Package — $850">Bridal Glow Package — $850</option>
+                <option value="Nail Atelier — $65">Nail Atelier — $65</option>
+                <option value="Brow & Lash Studio — $75">Brow &amp; Lash Studio — $75</option>
+                <option value="Forest Massage Ritual — $140">Forest Massage Ritual — $140</option>
+              </select>
+            </div>
+
+            <!-- Stylist -->
+            <div>
+              <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Preferred artisan</label>
+              <select id="stylist" class="input">
+                <option value="Any artisan">No preference</option>
+                <option value="Megaa Taylor">Megaa Taylor — Director</option>
+                <option value="Olivia Green">Olivia Green — Skin Specialist</option>
+                <option value="Sofia Laurent">Sofia Laurent — Colorist</option>
+                <option value="Amara Jones">Amara Jones — Nail Artist</option>
+              </select>
+            </div>
+
+            <!-- Date & Time -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Date</label>
+                <input type="date" id="date" required class="input" />
+              </div>
+              <div>
+                <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Time slot</label>
+                <div class="grid grid-cols-3 gap-2" id="timeSlots">
+                  <div class="slot" data-time="09:00">9:00 AM</div>
+                  <div class="slot" data-time="10:30">10:30 AM</div>
+                  <div class="slot disabled" data-time="12:00">12:00 PM</div>
+                  <div class="slot" data-time="13:30">1:30 PM</div>
+                  <div class="slot" data-time="15:00">3:00 PM</div>
+                  <div class="slot" data-time="16:30">4:30 PM</div>
+                  <div class="slot disabled" data-time="18:00">6:00 PM</div>
+                  <div class="slot" data-time="19:00">7:00 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personal info -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Full name</label>
+                <input type="text" id="name" required placeholder="Jane Doe" class="input" />
+              </div>
+              <div>
+                <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Phone</label>
+                <input type="tel" id="phone" required placeholder="(555) 000-0000" class="input" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Email</label>
+              <input type="email" id="email" required placeholder="jane@example.com" class="input" />
+            </div>
+
+            <!-- Notes -->
+            <div>
+              <label class="text-xs uppercase tracking-widest text-[var(--green)]/70 font-medium block mb-2">Notes <span class="opacity-60">(optional)</span></label>
+              <textarea id="notes" rows="2" placeholder="Allergies, preferences, occasion…" class="input resize-none"></textarea>
+            </div>
+
+            <!-- Summary + submit -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[var(--green)]/15">
+              <div class="text-sm text-[var(--green)]/70">
+                <div id="summaryLine" class="font-medium text-[var(--green)]">Select a service to see summary</div>
+                <div class="text-xs mt-0.5" id="summarySub">No date selected</div>
+              </div>
+              <button type="submit" class="btn-primary justify-center">
+                <span>Confirm Booking</span>
+                <i class="fa-solid fa-arrow-right text-xs relative z-10"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="py-24 px-6 lg:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-14 reveal">
+      <div class="text-xs uppercase tracking-[0.3em] text-[var(--green-light)] mb-4">— Moments</div>
+      <h2 class="font-display text-5xl md:text-6xl font-medium leading-[1.05] tracking-tight">
+        Inside our <span class="italic" style="color:var(--green-light);">sanctuary.</span>
+      </h2>
+    </div>
+
+    <!-- Masonry Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal-stagger">
+      <div class="gallery-item aspect-[3/4] col-span-2 md:row-span-2">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" alt="Salon moment" class="w-full h-full object-cover" />
+        <div class="overlay">
+          <div>
+            <div class="text-xs uppercase tracking-widest text-[var(--beige)]/80">Hair</div>
+            <div class="font-display text-xl text-white">Soft balayage</div>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Nails" class="w-full h-full object-cover" />
+        <div class="overlay">
+          <div class="font-display text-lg text-white">Nail art</div>
+        </div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Skincare" class="w-full h-full object-cover" />
+        <div class="overlay">
+          <div class="font-display text-lg text-white">Facial ritual</div>
+        </div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&q=80" alt="Makeup" class="w-full h-full object-cover" />
+        <div class="overlay">
+          <div class="font-display text-lg text-white">Editorial makeup</div>
+        </div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&q=80" alt="Spa" class="w-full h-full object-cover" />
+        <div class="overlay">
+          <div class="font-display text-lg text-white">Spa suite</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="py-24 px-6 lg:px-10 bg-[var(--beige-deep)]/40 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-4 reveal">
+        <div class="text-xs uppercase tracking-[0.3em] text-[var(--green-light)] mb-4">— Kind Words</div>
+        <h2 class="font-display text-5xl font-medium leading-[1.05] tracking-tight">
+          Loved by<br><span class="italic" style="color:var(--green-light);">our community.</span>
+        </h2>
+        <div class="mt-8 flex items-center gap-3">
+          <div class="flex -space-x-3">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-[var(--beige)]" alt="" />
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-[var(--beige)]" alt="" />
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-[var(--beige)]" alt="" />
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=80&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-[var(--beige)]" alt="" />
+          </div>
+          <div>
+            <div class="flex text-[var(--gold)] text-sm">★★★★★</div>
+            <div class="text-xs text-[var(--green)]/70">5.0 / 5 from 1,200+ reviews</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 reveal-stagger">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="bg-[var(--beige)] border border-[var(--beige-deep)] rounded-3xl p-7">
+            <i class="fa-solid fa-quote-left text-2xl text-[var(--green-light)] mb-4"></i>
+            <p class="text-[var(--green)] leading-relaxed">"The botanical facial left my skin glowing for days. I've never felt more connected to a beauty ritual. Megaa is truly a sanctuary."</p>
+            <div class="mt-5 flex items-center gap-3 pt-4 border-t border-[var(--green)]/10">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" class="w-10 h-10 rounded-full object-cover" alt="" />
+              <div>
+                <div class="font-semibold text-sm">Eleanor V.</div>
+                <div class="text-xs text-[var(--green)]/60">Loyal client · 2 years</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[var(--beige)] border border-[var(--beige-deep)] rounded-3xl p-7 md:mt-8">
+            <i class="fa-solid fa-quote-left text-2xl text-[var(--green-light)] mb-4"></i>
+            <p class="text-[var(--green)] leading-relaxed">"My bridal glow package was beyond anything I imagined. The organic products smelled incredible. I have never felt more myself."</p>
+            <div class="mt-5 flex items-center gap-3 pt-4 border-t border-[var(--green)]/10">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" class="w-10 h-10 rounded-full object-cover" alt="" />
+              <div>
+                <div class="font-semibold text-sm">Maya R.</div>
+                <div class="text-xs text-[var(--green)]/60">Bride · Spring 2024</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="px-6 lg:px-10 pt-24 pb-10 bg-[var(--green-dark)] text-[var(--beige)] relative overflow-hidden">
+  <div class="absolute -top-32 -right-20 w-96 h-96 rounded-full bg-[var(--green-light)]/20 blur-3xl"></div>
+  <div class="absolute -bottom-20 -left-10 w-80 h-80 rounded-full bg-[var(--green)]/30 blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="grid lg:grid-cols-12 gap-12 mb-16">
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-2.5 mb-6">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--green-light);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--beige)" stroke-width="2" class="w-5 h-5"><path d="M12 2L13.09 8.26L20 9L15 14L16.18 21L12 17.77L7.82 21L9 14L4 9L10.91 8.26L12 2Z" /></svg>
+          </div>
+          <div class="leading-tight">
+            <div class="font-display text-xl font-bold tracking-tight">Megaa Beauty</div>
+            <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--beige)]/60">Solution World</div>
+          </div>
+        </div>
+        <h3 class="font-display text-4xl md:text-5xl font-medium leading-[1.05] tracking-tight">
+          Ready to feel<br><span class="italic" style="color:var(--green-light);">naturally radiant?</span>
+        </h3>
+        <p class="mt-5 text-[var(--beige)]/70 max-w-md leading-relaxed">
+          Visit us at our sanctuary in the heart of the city, or send a note — we'd love to hear from you.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#booking" class="btn-primary" style="background:var(--green-light);">
+            <span>Book a visit</span>
+            <i class="fa-solid fa-arrow-right text-xs relative z-10"></i>
+          </a>
+          <a href="mailto:hello@megaabeauty.com" class="btn-ghost" style="border-color:var(--beige); color:var(--beige);">
+            Email us
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="text-xs uppercase tracking-[0.3em] text-[var(--beige)]/50 mb-5">Visit</div>
+        <div class="space-y-2 text-[var(--beige)]/85">
+          <div>123 Green Avenue</div>
+          <div>New York, NY 10001</div>
+          <div class="pt-4 text-xs uppercase tracking-[0.3em] text-[var(--beige)]/50 mb-2">Hours</div>
+          <div class="text-sm">Mon — Fri · 9am – 8pm</div>
+          <div class="text-sm">Sat — Sun · 10am – 6pm</div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-xs uppercase tracking-[0.3em] text-[var(--beige)]/50 mb-5">Explore</div>
+        <ul class="space-y-2.5 text-[var(--beige)]/85">
+          <li><a href="#services" class="hover:text-[var(--green-light)] transition">Services</a></li>
+          <li><a href="#about" class="hover:text-[var(--green-light)] transition">About</a></li>
+          <li><a href="#gallery" class="hover:text-[var(--green-light)] transition">Gallery</a></li>
+          <li><a href="#booking" class="hover:text-[var(--green-light)] transition">Book now</a></li>
+          <li><a href="#" class="hover:text-[var(--green-light)] transition">Gift cards</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-xs uppercase tracking-[0.3em] text-[var(--beige)]/50 mb-5">Follow</div>
+        <div class="flex gap-3">
+          <a href="#" class="w-10 h-10 rounded-full border border-[var(--beige)]/30 flex items-center justify-center hover:bg-[var(--green-light)] hover:border-[var(--green-light)] transition"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-[var(--beige)]/30 flex items-center justify-center hover:bg-[var(--green-light)] hover:border-[var(--green-light)] transition"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-[var(--beige)]/30 flex items-center justify-center hover:bg-[var(--green-light)] hover:border-[var(--green-light)] transition"><i class="fa-brands fa-pinterest"></i></a>
+        </div>
+        <div class="pt-6">
+          <div class="text-xs uppercase tracking-[0.3em] text-[var(--beige)]/50 mb-2">Call</div>
+          <a href="tel:+15551234567" class="font-display text-lg hover:text-[var(--green-light)] transition">(555) 123-4567</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-[var(--beige)]/15 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-[var(--beige)]/50">
+      <div>© 2025 Megaa Beauty Solution World. All rights reserved.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-[var(--beige)] transition">Privacy</a>
+        <a href="#" class="hover:text-[var(--beige)] transition">Terms</a>
+        <a href="#" class="hover:text-[var(--beige)] transition">Careers</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="check"><i class="fa-solid fa-check text-white text-xs"></i></div>
+  <div>
+    <div class="font-semibold text-sm">Booking confirmed!</div>
+    <div class="text-xs opacity-80" id="toastDetail">We'll see you soon.</div>
+  </div>
+</div>
+
+<script>
+  // === Navbar scroll ===
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      navbar.style.background = 'rgba(245,241,232,0.85)';
+      navbar.style.backdropFilter = 'blur(20px)';
+      navbar.style.borderBottom = '1px solid rgba(44,74,62,0.15)';
+    } else {
+      navbar.style.background = 'transparent';
+      navbar.style.backdropFilter = 'none';
+      navbar.style.borderBottom = 'none';
+    }
+  });
+
+  // === Mobile menu ===
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenu = document.getElementById('closeMenu');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // === Reveal on scroll ===
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  // === Counters ===
+  const counters = document.querySelectorAll('.counter-num');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        const duration = 2000;
+        const start = performance.now();
+        const animate = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const val = Math.floor(target * eased);
+          el.textContent = val.toLocaleString();
+          if (progress < 1) requestAnimationFrame(animate);
+          else el.textContent = target.toLocaleString() + (target >= 1000 ? '+' : '');
+        };
+        requestAnimationFrame(animate);
+        counterIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterIO.observe(c));
+
+  // === Time slot selection ===
+  const slots = document.querySelectorAll('.slot');
+  let selectedSlot = null;
+  slots.forEach(slot => {
+    slot.addEventListener('click', () => {
+      if (slot.classList.contains('disabled')) return;
+      slots.forEach(s => s.classList.remove('selected'));
+      slot.classList.add('selected');
+      selectedSlot = slot.dataset.time;
+      updateSummary();
+    });
+  });
+
+  // === Min date = today ===
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.addEventListener('change', updateSummary);
+
+  // === Service card click → fill booking ===
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const service = card.dataset.service;
+      const select = document.getElementById('service');
+      for (let opt of select.options) {
+        if (opt.text.toLowerCase().includes(service.toLowerCase()) || opt.value.toLowerCase().includes(service.toLowerCase())) {
+          select.value = opt.value;
+          break;
+        }
+      }
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+      updateSummary();
+    });
+  });
+
+  // === Summary ===
+  function updateSummary() {
+    const service = document.getElementById('service').value;
+    const date = document.getElementById('date').value;
+    const summaryLine = document.getElementById('summaryLine');
+    const summarySub = document.getElementById('summarySub');
+
+    if (service) {
+      summaryLine.textContent = service;
+    } else {
+      summaryLine.textContent = 'Select a service to see summary';
+    }
+
+    if (date && selectedSlot) {
+      const d = new Date(date + 'T' + selectedSlot);
+      const formatted = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      summarySub.textContent = formatted;
+    } else if (date) {
+      summarySub.textContent = new Date(date + 'T00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) + ' · No time selected';
+    } else {
+      summarySub.textContent = 'No date selected';
+    }
+  }
+  document.getElementById('service').addEventListener('change', updateSummary);
+
+  // === Form submit ===
+  document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const service = document.getElementById('service').value;
+    const date = document.getElementById('date').value;
+    const name = document.getElementById('name').value;
+    const time = selectedSlot;
+
+    if (!service) { showToast('Please choose a service', false); return; }
+    if (!date) { showToast('Please pick a date', false); return; }
+    if (!time) { showToast('Please select a time slot', false); return; }
+
+    const detail = `${service.split('—')[0].trim()} on ${new Date(date + 'T' + time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at ${time}. See you soon, ${name.split(' ')[0]}!`;
+    showToast(detail, true);
+    
+    setTimeout(() => {
+      e.target.reset();
+      slots.forEach(s => s.classList.remove('selected'));
+      selectedSlot = null;
+      updateSummary();
+    }, 1500);
+  });
+
+  // === Toast ===
+  function showToast(message, success = true) {
+    const toast = document.getElementById('toast');
+    const detail = document.getElementById('toastDetail');
+    const check = toast.querySelector('.check');
+    if (!success) {
+      check.style.background = '#c1666b';
+      toast.querySelector('.font-semibold').textContent = 'Almost there!';
+    } else {
+      check.style.background = 'var(--green-light)';
+      toast.querySelector('.font-semibold').textContent = 'Booking confirmed!';
+    }
+    detail.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4500);
+  }
+</script>
+</body>
+</html>
